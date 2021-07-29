@@ -23,6 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '45%iifpfy(*@wxwtf@ha+5wlvrpt2lq-@knaoda5et*%8b103t'
 
+REFRESH_TOKEN_SECRET = 'refresh_token'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -124,7 +126,8 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'todo_list.core.authentication.MyJWTAuthentication'
     ],
 }
 
