@@ -4,6 +4,6 @@ urlpatterns = [
     path("accounts/register/", auth_views.UserRegisterView.as_view(),
          name="account_register"),
     path("accounts/login/", auth_views.UserLoginView.as_view(), name="account_login"),
-
-    path("todos/", todo_views.TodoView.as_view(), name="todo_list")
+    path("todos/", todo_views.TodoListView.as_view(), name="todo_list"),
+    path("todos/<int:pk>", todo_views.TodoDetailView.as_view(), name="todo_list"),
 ]
