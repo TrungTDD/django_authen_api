@@ -53,18 +53,25 @@ class TodoDetailView(APIView):
                 "data" : {}
             }, status=status.HTTP_200_OK)
 
-    # def put(self, request, pk):
-    #     try:
-    #         task = Task.objects.filter(pk=pk).first()
-    #         serializer = TaskSerializers(task, data=request.data)
-    #         if serializer.is_valid():
-    #             serializer.save()
-    #         return Response(data={
-    #             "data" : TaskSerializers(task).data
-    #         }, status=status.HTTP_200_OK)
-    #     except Task.DoesNotExist:
-    #         return Response(data={
-    #             "data" : {}
-    #         }, status=status.HTTP_200_OK)
+    def put(self, request, pk):
+        try:
+            task = Task.objects.filter(pk=pk).first()
+            serializer = TaskSerializers(task, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(data={
+                "message" : "Successfully modify",
+                "data" : serializer.data
+            }, status=status.HTTP_200_OK)
+        except Task.DoesNotExist:
+            return Response(data={
+                "data" : {}
+            }, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk, format=None):
+        task = Task.objects.filter(pk=pk).first()
+        task.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
         
