@@ -18,7 +18,6 @@ class MyJWTAuthentication(authentication.BaseAuthentication):
 
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256'])
-
         except jwt.InvalidSignatureError:
             raise exceptions.AuthenticationFailed('access_token is invalid')
         except jwt.ExpiredSignatureError:
@@ -29,5 +28,4 @@ class MyJWTAuthentication(authentication.BaseAuthentication):
         user = User.objects.filter(id=payload['user_id']).first()
         if user is None:
             raise exceptions.AuthenticationFailed('User not found')
-
         return (user, None)
