@@ -44,7 +44,8 @@ class TodoDetailView(APIView):
 
     def get(self, request, pk):
         try:
-            task = Task.objects.filter(pk=pk).first()
+            user = request.user
+            task = user.task.get(pk=pk)
             return Response(data={
                 "data" : TaskSerializers(task).data
             }, status=status.HTTP_200_OK)
@@ -55,7 +56,8 @@ class TodoDetailView(APIView):
 
     def put(self, request, pk):
         try:
-            task = Task.objects.filter(pk=pk).first()
+            user = request.user
+            task = user.task.get(pk=pk)
             serializer = TaskSerializers(task, data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -69,7 +71,8 @@ class TodoDetailView(APIView):
             }, status=status.HTTP_200_OK)
 
     def delete(self, request, pk, format=None):
-        task = Task.objects.filter(pk=pk).first()
+        user = request.user
+        task = user.task.get(pk=pk)
         task.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
