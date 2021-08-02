@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+    django:
+        env_file: 
+            - .env
+        build:
+            context: .
