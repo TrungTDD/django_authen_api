@@ -48,7 +48,7 @@ class AccountTests(APITestCase):
             "password" : "12345678"
         }
         response = self.client.post(url, data=body, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_101_SWITCHING_PROTOCOLS)
 
 
 
