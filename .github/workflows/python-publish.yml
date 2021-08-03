@@ -25,10 +25,6 @@ jobs:
       run: python manage.py migrate
     - name: Run tests
       run: python manage.py test
-    - name: build image
-      run: docker build -t django-cicd .
-    - name: re-tag image
-      run: docker tag django-cicd registry.heroku.com/django-cicd/web
   heroku_git_deploy_job:
       needs: [ build ]
       runs-on: ubuntu-latest
@@ -36,6 +32,10 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+        - name: build image
+          run: docker build -t django-cicd .
+        - name: re-tag image
+          run: docker tag django-cicd registry.heroku.com/django-cicd/web
         - name: Deploy django to heroku
           uses: nyakaz73/heroku-django-deploy@v0.68 
           with: 
