@@ -32,13 +32,18 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
-        - name: pwd
-          run: pwd
-        - name: Deploy django to heroku
-          uses: nyakaz73/heroku-django-deploy@v0.68 
-          with: 
-            heroku_app_name : django-cicd
-            heroku_api_key: c548e174-86bc-41b8-9949-88d0bb3c7cc0
-            heroku_email_address: 'trungtruong.working@gmail.com'
-            use_docker: true
+        - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+          with:
+              heroku_api_key: c548e174-86bc-41b8-9949-88d0bb3c7cc0
+              heroku_app_name: django-cicd
+              heroku_email: "trungtruong.working@gmail.com"
+              usedocker: true
+          
+#         - name: Deploy django to heroku
+#           uses: nyakaz73/heroku-django-deploy@v0.68 
+#           with: 
+#             heroku_app_name : django-cicd
+#             heroku_api_key: c548e174-86bc-41b8-9949-88d0bb3c7cc0
+#             heroku_email_address: 'trungtruong.working@gmail.com'
+#             use_docker: true
       
