@@ -32,6 +32,8 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
+        - name: pwd
+          run: pwd
         - name: Deploy django to heroku
           uses: nyakaz73/heroku-django-deploy@v0.68 
           with: 
