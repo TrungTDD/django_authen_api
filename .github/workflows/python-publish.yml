@@ -2,6 +2,11 @@ name: Learning CICD
 
 on: [push]
 
+defaults:
+  run:
+    working-directory: ./django_authen_api
+    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,13 +17,24 @@ jobs:
       with:
         python-version: '3.6.7'
     - name: Install dependencies
-      working-directory: ./django_authen_api
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run migrations
-      working-directory: ./django_authen_api
       run: python manage.py migrate
     - name: Run tests
-      working-directory: ./django_authen_api
       run: python manage.py test
+  heroku_git_deploy_job:
+      runs-on: ubuntu-latest
+      name: Git Deploy job- A job to deploy django app to heroku using git
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Deploy django to heroku
+          uses: nyakaz73/heroku-django-deploy@v0.68 
+          with: 
+            heroku_app_name : django-cicd
+            heroku_api_key: c548e174-86bc-41b8-9949-88d0bb3c7cc0
+            heroku_email_address: 'trungtruong.working@gmail.com'
+            use_docker: true
+      
