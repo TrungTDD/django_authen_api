@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 
 class AccountTests(APITestCase):
     def setUp(self):
-        user = User.objects.create(username="trung", password=make_password("12345678"))
+        User.objects.create(username="trung", password=make_password("12345678"))
 
     def test_create_account_success(self):
         """
