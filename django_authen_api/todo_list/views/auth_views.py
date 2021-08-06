@@ -22,17 +22,16 @@ class UserRegisterView(APIView):
             username = serializer.validated_data["username"]
             password = serializer.validated_data["password"]
 
-            if not User.objects.filter(username=username).exists():
-                serializer.validated_data["password"] = make_password(password)
-                user = serializer.save()
-                access_token, refresh_token = generate_token(user)
-                return Response(data={
-                    "message": "Account create successfully",
-                    "data" : {
-                        "access_token" : access_token,
-                        "refresh_token" : refresh_token,
-                    }
-                }, status=status.HTTP_201_CREATED)
+            serializer.validated_data["password"] = make_password(password)
+            user = serializer.save()
+            access_token, refresh_token = generate_token(user)
+            return Response(data={
+                "message": "Account create successfully",
+                "data" : {
+                    "access_token" : access_token,
+                    "refresh_token" : refresh_token,
+                }
+            }, status=status.HTTP_201_CREATED)    
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
