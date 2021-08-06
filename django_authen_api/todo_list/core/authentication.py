@@ -1,8 +1,7 @@
-from django.contrib.auth.models import User
-from rest_framework import authentication
 import jwt
 from django.conf import settings
-from rest_framework import exceptions
+from django.contrib.auth.models import User
+from rest_framework import authentication, exceptions
 
 
 class MyJWTAuthentication(authentication.BaseAuthentication):
@@ -14,18 +13,19 @@ class MyJWTAuthentication(authentication.BaseAuthentication):
 
         try:
             # header: Bearer xxxxxxx
-            access_token = token_header.split(' ')[1]
+            access_token = token_header.split(" ")[1]
 
             payload = jwt.decode(
-                access_token, settings.SECRET_KEY, algorithms=['HS256'])
+                access_token, settings.SECRET_KEY, algorithms=["HS256"]
+            )
         except jwt.InvalidSignatureError:
-            raise exceptions.AuthenticationFailed('access_token is invalid')
+            raise exceptions.AuthenticationFailed("access_token is invalid")
         except jwt.ExpiredSignatureError:
-            raise exceptions.AuthenticationFailed('access_token expired')
+            raise exceptions.AuthenticationFailed("access_token expired")
         except IndexError:
-            raise exceptions.AuthenticationFailed('Token prefix missing')
+            raise exceptions.AuthenticationFailed("Token prefix missing")
 
-        user = User.objects.filter(id=payload['user_id']).first()
+        user = User.objects.filter(id=payload["user_id"]).first()
         if user is None:
-            raise exceptions.AuthenticationFailed('User not found')
+            raise exceptions.AuthenticationFailed("User not found")
         return (user, None)
