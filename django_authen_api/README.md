@@ -35,20 +35,11 @@ repos:
     rev: 3.8.4
     hooks:
     - id: flake8
+      args: ["--max-line-length", "120", "--extend-ignore", "F403,F405"]
 -   repo: https://github.com/timothycrosley/isort
     rev: 5.7.0
     hooks:
     -   id: isort
-<code><pre>
-
-Create `.flake8` for customize flake8
-
-<pre><code>
-[flake8]
-ignore = E203, E266, E501, W503, F403, F401
-max-line-length = 120
-max-complexity = 18
-select = B,C,E,F,W,T4,B9
 <code><pre>
 
 Running the below command:
